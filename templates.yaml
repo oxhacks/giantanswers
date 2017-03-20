@@ -1,0 +1,6 @@
+greeting: Giant Answers. What game would you like to know about?
+reprompt: With Giant Answers, you can find out more about a video game using the power of 
+  the Giant Bomb API. For example, you can ask "What do you know about Metal Gear Solid"? 
+  What would you like to search?
+found: I found {{ name }}, released {{ release }}. {{ deck }}
+notfound: I couldn't find {{ name }}. My apologies!
