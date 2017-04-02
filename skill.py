@@ -9,13 +9,15 @@ from gb import api
 app = Flask(__name__)
 ask = Ask(app, '/')
 giant_bomb = api.GBApi()
+# Placeholder until I can determine why verification fails for certifiers
+app.config['ASK_VERIFY_REQUESTS'] = False
 
 
 @ask.launch
 def launch():
     greeting_text = render_template('greeting')
     reprompt_text = render_template('reprompt')
-    speech = question(greeting_text).reprompt(reprompt_text)
+    return question(greeting_text).reprompt(reprompt_text)
 
 
 @ask.intent('GetAnswerIntent', mapping={'title': 'Title'})
@@ -27,6 +29,7 @@ def answer(title):
                                      deck=lookup.deck)
         return statement(found_text)
     notfound_text = render_template('notfound', name=title)
+    more_text = render_template('more')
     return statement(notfound_text)
 
 

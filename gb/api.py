@@ -6,6 +6,8 @@ import requests
 import humanize
 from fuzzywuzzy import process
 
+import helpers
+
 
 Answer = namedtuple('Answer', ['deck', 'name', 'release', 'release_human', 'match'])
 
@@ -16,18 +18,23 @@ def parse_date(date_string):
 
 def find_match(data, title):
     names = [entry['name'] for entry in data]
-    match = process.extractOne(title, names)
-    for entry in data:
-        if entry['name'] == title:
-            release = parse_date(data[0]['original_release_date'])
-            release_human = humanize.naturaltime(release)
-            return Answer(
-                deck=entry['deck'],
-                name=entry['name'],
-                release=release,
-                release_human=release_human,
-                match=True
-            )
+    try:
+        match, score = process.extractOne(title, names)
+    except TypeError as exc:
+        print("no match found: {}".format(exc))
+    if data and match:
+        print("matched {} with score of {}".format(match, score))
+        for entry in data:
+            if entry['name'] == match:
+                release = parse_date(data[0]['original_release_date'])
+                release_human = humanize.naturaltime(release)
+                return Answer(
+                    deck=entry['deck'],
+                    name=entry['name'],
+                    release=release,
+                    release_human=release_human,
+                    match=True
+                )
     return Answer(
         name=title,
         deck="No entry available",
@@ -49,7 +56,10 @@ class GBApi(object):
     def build_url(self, resource):
         return "{}://{}/api/{}".format(self.protocol, self.domain, resource)
 
-    def whatis(self, title):
+    def whatis(self, raw_title):
+        print("Searching for {}".format(raw_title))
+        title = helpers.word_to_int(raw_title)
+        print("fixed title to {}".format(title))
         _filter = "name:{}".format(title)
         _fields = ','.join(self.fields)
         params = {
@@ -62,5 +72,6 @@ class GBApi(object):
         req = requests.get(url, params=params, headers=self.headers)
         print("sending request to {}".format(req.url))
         data = req.json()['results']
+        print("response: ", req.json())
         match = find_match(data, title)
         return match

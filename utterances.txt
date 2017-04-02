@@ -1,0 +1,22 @@
+GetAnswerIntent what game is {klax|Title}
+GetAnswerIntent what is {klax|Title}
+GetAnswerIntent tell me about {klax|Title}
+GetAnswerIntent {klax|Title}
+GetAnswerIntent what game is {persona four|Title}
+GetAnswerIntent what is {persona four|Title}
+GetAnswerIntent tell me about {persona four|Title}
+GetAnswerIntent {persona four|Title}
+GetAnswerIntent what game is {metal gear solid|Title}
+GetAnswerIntent what is {metal gear solid|Title}
+GetAnswerIntent tell me about {metal gear solid|Title}
+GetAnswerIntent {metal gear solid|Title}
+
+AMAZON.StopIntent no
+AMAZON.StopIntent nope
+AMAZON.StopIntent no thanks
+AMAZON.StopIntent no thank you
+
+AMAZON.CancelIntent stop
+AMAZON.CancelIntent cancel
+
+AMAZON.HelpIntent help

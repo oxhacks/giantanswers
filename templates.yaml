@@ -7,3 +7,5 @@ reprompt: With Giant Answers, you can find out more about a video game using the
 found: I found {{ name }}, released {{ release }}. {{ deck }}
 
 notfound: I couldn't find {{ name }}. My apologies!
+
+more: Would you like to know more?

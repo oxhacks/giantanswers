@@ -2,6 +2,11 @@
     "dev": {
         "app_function": "skill.app", 
         "s3_bucket": "giantanswers",
+        "remote_env": "s3://giantanswers/config-dev.json"
+    },
+    "prod": {
+        "app_function": "skill.app", 
+        "s3_bucket": "giantanswers",
         "remote_env": "s3://giantanswers/config.json"
     }
 }
