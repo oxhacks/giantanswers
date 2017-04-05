@@ -1,10 +1,14 @@
 # Giant Answers
 Harness the power of the Giant Bomb API through Alexa.
 
+Certified and available on the Alexa skill storefront:
+https://www.amazon.com/dp/B06XX6S771/
+
 ### Sample Questions
-* Alexa, give me a Giant Answer for Metal Gear Solid
-* Alexa, tell me a Giant Answer for Klax
-* Alexa, what's the Giant Answer for Burgertime
+_first, "Alexa, start Giant Answers"_
+* what is Metal Gear Solid?
+* tell me about Klax
+* Persona 4?
 
 ### Requirements
 Deploys with Zappa. Configure with your secrets in the S3 bucket of your choice, specified in `zappa_settings.json`. 
