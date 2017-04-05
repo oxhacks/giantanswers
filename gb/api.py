@@ -1,3 +1,5 @@
+"""Interact with the Giant Bomb API."""
+
 import os
 from collections import namedtuple
 from datetime import datetime
@@ -8,15 +10,29 @@ from fuzzywuzzy import process
 
 import helpers
 
-
+# This helps tidy up the results returned
 Answer = namedtuple('Answer', ['deck', 'name', 'release', 'release_human', 'match'])
 
 
 def parse_date(date_string):
+    """Parse the date string from the database into a `datetime` object.
+
+    :param date_string: the raw date string to parse
+    :returns: the `datetime` version of the given date string
+
+    """
     return datetime.strptime(date_string, "%Y-%m-%d %H:%M:%S")
 
 
 def find_match(data, title):
+    """Parse the list of search results to find the best match.
+    This uses LDA to compare titles against each other.
+
+    :param data: the iterable of response data to search through
+    :param title: the title to compare the result set against
+    :returns: an `Answer` `namedtuple` holding the best match
+
+    """
     names = [entry['name'] for entry in data]
     try:
         match, score = process.extractOne(title, names)
@@ -45,7 +61,15 @@ def find_match(data, title):
 
 
 class GBApi(object):
+    """Class to facilitate interaction."""
     def __init__(self, protocol='https', format='json'):
+        """Initialize the helper.
+
+        :param protocol: likely either `http` or `https`. Use `https` unless you're crazy.
+        :param format`: the format to grab the results in - either `xml` or `json`
+        :returns: `None`
+
+        """
         self.protocol = protocol
         self.domain = 'www.giantbomb.com'
         self.api_key = os.environ.get('GB_API_KEY')
@@ -54,9 +78,21 @@ class GBApi(object):
         self.headers = {'User-Agent': 'Giant Answers/1.0'}
 
     def build_url(self, resource):
+        """Build the URL against the given resource.
+
+        :param resource: the resource (like `games`) that calls should be fired against
+        :returns: the URL string to use
+
+        """
         return "{}://{}/api/{}".format(self.protocol, self.domain, resource)
 
     def whatis(self, raw_title):
+        """Search the API for the given title.
+        
+        :param raw_title: the raw spoken title string to search four
+        :returns: the best match from the API given the params
+        
+        """
         print("Searching for {}".format(raw_title))
         title = helpers.word_to_int(raw_title)
         print("fixed title to {}".format(title))

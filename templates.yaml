@@ -9,3 +9,5 @@ found: I found {{ name }}, released {{ release }}. {{ deck }}
 notfound: I couldn't find {{ name }}. My apologies!
 
 more: Would you like to know more?
+
+nothing: I didn't hear a game title. Is there a game you are curious about?

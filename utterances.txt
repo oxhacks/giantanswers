@@ -10,13 +10,3 @@ GetAnswerIntent what game is {metal gear solid|Title}
 GetAnswerIntent what is {metal gear solid|Title}
 GetAnswerIntent tell me about {metal gear solid|Title}
 GetAnswerIntent {metal gear solid|Title}
-
-AMAZON.StopIntent no
-AMAZON.StopIntent nope
-AMAZON.StopIntent no thanks
-AMAZON.StopIntent no thank you
-
-AMAZON.CancelIntent stop
-AMAZON.CancelIntent cancel
-
-AMAZON.HelpIntent help
