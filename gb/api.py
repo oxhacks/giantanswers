@@ -8,7 +8,7 @@ import requests
 import humanize
 from fuzzywuzzy import process
 
-import helpers
+from gb import helpers
 
 # This helps tidy up the results returned
 Answer = namedtuple('Answer', ['deck', 'name', 'release', 'release_human', 'match'])
@@ -42,8 +42,12 @@ def find_match(data, title):
         print("matched {} with score of {}".format(match, score))
         for entry in data:
             if entry['name'] == match:
-                release = parse_date(data[0]['original_release_date'])
-                release_human = humanize.naturaltime(release)
+                try:
+                    release = parse_date(data[0]['original_release_date'])
+                    release_human = humanize.naturaltime(release)
+                except TypeError:
+                    release = None
+                    release_human = "Unknown time ago"
                 return Answer(
                     deck=entry['deck'],
                     name=entry['name'],
@@ -88,10 +92,10 @@ class GBApi(object):
 
     def whatis(self, raw_title):
         """Search the API for the given title.
-        
+
         :param raw_title: the raw spoken title string to search four
         :returns: the best match from the API given the params
-        
+
         """
         print("Searching for {}".format(raw_title))
         title = helpers.word_to_int(raw_title)
