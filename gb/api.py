@@ -6,7 +6,7 @@ from datetime import datetime
 
 import requests
 import humanize
-from fuzzywuzzy import process
+from rapidfuzz import process
 
 from gb import helpers
 
