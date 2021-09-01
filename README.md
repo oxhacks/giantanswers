@@ -14,4 +14,4 @@ _first, "Alexa, start Giant Answers"_
 Deploys with Zappa. Configure with your secrets in the S3 bucket of your choice, specified in `zappa_settings.json`. 
 
 ### Contact
-justin@mightynorthmedia.com
+justin -at- oxtech -dot- io
