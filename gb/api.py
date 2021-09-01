@@ -21,7 +21,7 @@ def parse_date(date_string):
     :returns: the `datetime` version of the given date string
 
     """
-    return datetime.strptime(date_string, "%Y-%m-%d %H:%M:%S")
+    return datetime.strptime(date_string, "%Y-%m-%d")
 
 
 def find_match(data, title):
